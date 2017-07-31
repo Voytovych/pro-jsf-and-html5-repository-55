@@ -1,0 +1,58 @@
+-- Create Table: BOOK
+--------------------------------------------------------------------------------
+CREATE TABLE BOOK
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"ISBN" VARCHAR(64) not null 
+	,"TITLE" VARCHAR(128)  not null 
+	,"AUTHOR" VARCHAR(128) not null 
+	,"PUBLISHER" VARCHAR(64)  not null 
+	,"LANG" VARCHAR(64) not null 
+	,"CONTENT" blob(1M) not null
+);
+
+
+-- Create Table: BOOK_MEGA_USER
+--------------------------------------------------------------------------------
+CREATE TABLE BOOK_MEGA_USER
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"BOOK_ID" INTEGER not null 
+	,"USER_ID" INTEGER not null
+        ,"TRANS_TIME" BIGINT not null
+);
+
+
+
+-- Create Table: MEGA_USER
+--------------------------------------------------------------------------------
+CREATE TABLE MEGA_USER
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"LOGIN_NAME" VARCHAR(64) not null 
+	,"FIRST_NAME" VARCHAR(32) not null 
+	,"LAST_NAME" VARCHAR(32) not null 
+	,"PASSWORD" VARCHAR(32) not null 
+	,"ROLE_ID" INTEGER
+);
+
+
+
+-- Create Table: ROLE
+--------------------------------------------------------------------------------
+CREATE TABLE ROLE
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"DESC" VARCHAR(32) not null
+);
+
+-- Create Foreign Key: BOOK_USER.BOOK_ID -> BOOK.ID
+ALTER TABLE BOOK_MEGA_USER ADD CONSTRAINT FK_BOOK_USER_BOOK_ID_BOOK_ID FOREIGN KEY (BOOK_ID) REFERENCES BOOK(ID);
+
+
+-- Create Foreign Key: BOOK_USER.USER_ID -> USER.ID
+ALTER TABLE BOOK_MEGA_USER ADD CONSTRAINT FK_BOOK_USER_USER_ID_USER_ID FOREIGN KEY (USER_ID) REFERENCES MEGA_USER(ID);
+
+
+-- Create Foreign Key: USER.ROLE -> ROLE.ID
+ALTER TABLE MEGA_USER ADD CONSTRAINT FK_ROLE_ROLE_ID FOREIGN KEY (ROLE_ID) REFERENCES ROLE(ID);

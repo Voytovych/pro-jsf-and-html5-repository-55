@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:projsfhtml5="http://xmlns.jcp.org/jsf/composite/projsfhtml5">
+
+    <ui:composition template="/base.xhtml">
+
+        <ui:define name="title">
+            Audio Component
+        </ui:define>
+
+        <ui:define name="top">
+            Audio Component
+        </ui:define>
+
+        <ui:define name="content">
+            <h2>Audio with a single media file</h2>
+            <projsfhtml5:audio value="media/04-Death_Becomes_Fur.mp4" 
+                               autoplay="true" 
+                               controls="true" />
+
+            <h2>Audio with multiple media sources</h2>
+            <projsfhtml5:audio value="media/04-Death_Becomes_Fur.mp4" 
+                               controls="true"
+                               sources="#{exampleAudioComponent.mediaSources}" />
+
+        </ui:define>
+    </ui:composition>
+</html>
+

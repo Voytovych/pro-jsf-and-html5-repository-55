@@ -1,0 +1,225 @@
+package com.jsfprohtml5.megaapp.backing;
+
+import com.jsfprohtml5.megaapp.model.Book;
+import com.jsfprohtml5.megaapp.model.BookRequest;
+import com.jsfprohtml5.megaapp.model.Constants;
+import com.jsfprohtml5.megaapp.model.MegaUser;
+import com.jsfprohtml5.megaapp.service.BookManagerLocal;
+import com.jsfprohtml5.megaapp.service.BookRequestManagerLocal;
+import com.jsfprohtml5.megaapp.service.MegaUserManagerLocal;
+import com.jsfprohtml5.megaapp.service.exception.BookAlreadyExists;
+import com.jsfprohtml5.megaapp.service.exception.BookNotFound;
+import com.jsfprohtml5.megaapp.service.exception.BookRequestAlreadyExists;
+import com.jsfprohtml5.megaapp.service.exception.BookRequestNotFound;
+import com.jsfprohtml5.megaapp.service.exception.UserAlreadyExists;
+import com.jsfprohtml5.megaapp.service.exception.UserNotFound;
+import java.io.Serializable;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+public class FunctionTester {    
+    private Integer bookID;
+    private String userID = "admin";
+    private Integer bookRequestNo;
+    
+    public void testAddBook(BookManagerLocal bookManager) {
+        try {
+            Book book = new Book();
+            
+            book.setAuthor("author" + System.currentTimeMillis());
+            book.setContent("1232323232".getBytes());
+            book.setIsbn(System.currentTimeMillis() + "");
+            book.setLang("English");
+            book.setPublisher("Publisher" + System.currentTimeMillis());
+            book.setTitle("Title" + System.currentTimeMillis());
+            
+            bookManager.registerBook(book);
+            
+            bookID = book.getId();
+            
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                             "Book Created Successfully with id ({0})  ...", 
+                             bookID);
+        } catch (BookAlreadyExists ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+     
+    
+    public void testUpdateBook(BookManagerLocal bookManager) {
+        Book book = new Book();
+
+        book.setId(bookID);
+        book.setAuthor("Updated author" + System.currentTimeMillis());
+        book.setContent("1232323232".getBytes());
+        book.setIsbn(System.currentTimeMillis() + "");
+        book.setLang("English");
+        book.setPublisher("Publisher" + System.currentTimeMillis());
+        book.setTitle("Updated Title" + System.currentTimeMillis());
+        
+        try {            
+            bookManager.updateBook(book);
+        } catch (BookNotFound ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        bookID = book.getId();
+
+        Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                         "Book Updated Successfully with id ({0})  ...", 
+                         bookID);
+    
+    }    
+    
+    public void testGetBookContent(BookManagerLocal bookManager) throws BookNotFound {
+        Serializable content = (Serializable) bookManager.getBookContent(bookID);
+        
+        
+        Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                         "Book content ({0})  ...", 
+                         content.toString());
+    }     
+    
+    public void testGetBook(BookManagerLocal bookManager) throws BookNotFound {
+        Book book = bookManager.getBookInformation(bookID);
+        
+        if (book != null) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                             "Book retrieved Successfully: ({0}) ...",
+                             book.getTitle());            
+        }
+    }  
+    
+    public void testGetAllBooks(BookManagerLocal bookManager) {
+        Book searchableBook = new Book();
+        
+        searchableBook.setTitle("Title");
+        
+        List<Book> books = bookManager.getAllBooks(searchableBook);
+        
+        if (books != null) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                             "Number of returned books are ({0}) ...",
+                             books.size());            
+        }
+    }        
+    
+    public void testDeleteBook(BookManagerLocal bookManager) {
+        try {
+            bookManager.removeBook(bookID);
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                             "Book removed Successfully with id ({0}) ...",
+                             bookID);            
+        } catch (BookNotFound ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }    
+    
+    public void testRegisterUser(MegaUserManagerLocal userManager) {
+        MegaUser megaUser = new MegaUser();
+
+        megaUser.setFirstName("Hazem");
+        megaUser.setLastName("Saleh");
+        megaUser.setId("hazems" + System.currentTimeMillis());
+        megaUser.setPassword("password");
+
+        try {
+            MegaUser user = userManager.registerMegaUser(megaUser);
+
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                         "User Created Successfully with id ({0})  ...", 
+                         user.getId());
+            
+            userID = user.getId();
+        } catch (UserAlreadyExists ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+    }      
+    
+    public void testGetUser(MegaUserManagerLocal userManager) { 
+        MegaUser user = userManager.getMegaUser(userID);
+        
+        if (user != null) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+             "User ({0}) retrieved Successfully  ...", 
+             user.getFirstName() + " " + user.getLastName());
+        }
+    }       
+
+    public void testDeleteUser(MegaUserManagerLocal userManager) { 
+        try {
+            userManager.removeMegaUser(userID);
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+             "User ({0}) deleted Successfully  ...", 
+             userID);            
+        } catch (UserNotFound ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }     
+    
+    public void testSendBookRequest(BookRequestManagerLocal bookRequestManager) {
+        BookRequest bookRequest = new BookRequest();
+        
+        bookRequest.setBookId(new Book(bookID));
+        bookRequest.setUserId(new MegaUser(userID));
+        try {
+           BookRequest request = bookRequestManager.sendBookRequest(bookRequest);
+           
+           bookRequestNo = request.getId();
+           
+           Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+             "Book request ({0}) sent Successfully  ...", 
+             bookRequestNo);            
+        } catch (BookRequestAlreadyExists ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void testViewItemsInbox(BookRequestManagerLocal bookRequestManager) {
+        BookRequest bookRequest = new BookRequest();
+        
+        bookRequest.setBookId(new Book(bookID));
+        bookRequest.setUserId(new MegaUser(userID));
+         
+        int pendingRequests = bookRequestManager.viewRequests(userID, 
+                                              Constants.PENDING_REQUEST).size();
+           
+        int approvedRequests = bookRequestManager.viewRequests(userID, 
+                                              Constants.APPROVED_REQUEST).size();
+        
+        int rejectedRequests = bookRequestManager.viewRequests(userID, 
+                                              Constants.REJECTED_REQUEST).size();
+        
+        Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+             "Pending: ({0}), Rejected: ({1}), Approved: ({2})", 
+             new Integer[] {pendingRequests, rejectedRequests, approvedRequests});            
+    }    
+    
+    public void testApproveBookRequest(BookRequestManagerLocal bookRequestManager) {
+        try {
+            bookRequestManager.approveBookRequest(bookRequestNo);
+            
+           Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                            "Book request ({0}) approved Successfully  ...", 
+                            bookRequestNo);                
+        } catch (BookRequestNotFound ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }    
+    
+    public void testRejectBookRequest(BookRequestManagerLocal bookRequestManager) {
+        try {
+            bookRequestManager.rejectBookRequest(bookRequestNo);
+            
+           Logger.getLogger(FunctionTester.class.getName()).log(Level.INFO, 
+                            "Book request ({0}) rejected Successfully  ...", 
+                            bookRequestNo);               
+        } catch (BookRequestNotFound ex) {
+            Logger.getLogger(FunctionTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }       
+}

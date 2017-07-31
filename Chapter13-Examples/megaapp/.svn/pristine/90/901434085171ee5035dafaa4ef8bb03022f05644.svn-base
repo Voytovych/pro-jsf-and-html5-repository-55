@@ -1,0 +1,25 @@
+package com.jsfprohtml5.megaapp.backing;
+import com.jsfprohtml5.megaapp.service.BookManagerLocal;
+import com.jsfprohtml5.megaapp.service.BookRequestManagerLocal;
+import java.io.Serializable;
+import javax.ejb.EJB;
+import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+
+@Named
+@ViewScoped
+public class TestBacking extends BaseBacking implements Serializable {
+    @EJB
+    private BookManagerLocal bookManager;  
+    
+    @EJB
+    private BookRequestManagerLocal bookRequestManager;    
+    
+    public void testAddBook(ComponentSystemEvent event) {
+        FunctionTester functionTester = new FunctionTester();
+        
+        functionTester.testViewItemsInbox(bookRequestManager);
+    }
+    
+}

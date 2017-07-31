@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+     <application>
+         
+         <system-event-listener>
+             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+             <system-event-listener-class>com.jsfprohtml5.subscriber.model.ListingLoader</system-event-listener-class>
+         </system-event-listener>
+         
+         <system-event-listener>
+             <system-event-class>javax.faces.event.PreDestroyApplicationEvent</system-event-class>             
+             <system-event-listener-class>com.jsfprohtml5.subscriber.model.ListingLoader</system-event-listener-class>
+         </system-event-listener>         
+         
+         <system-event-listener>
+             <source-class>javax.faces.component.html.HtmlInputText</source-class>
+             <system-event-class>javax.faces.event.PostValidateEvent</system-event-class>             
+             <system-event-listener-class>com.jsfprohtml5.subscriber.model.ErrorDisplayListener</system-event-listener-class>
+         </system-event-listener>         
+         
+	 <resource-bundle>
+	     <base-name>com.jsfprohtml5.subscriber.messages</base-name>
+	     <var>bundle</var>
+	 </resource-bundle>
+     </application>    
+</faces-config>

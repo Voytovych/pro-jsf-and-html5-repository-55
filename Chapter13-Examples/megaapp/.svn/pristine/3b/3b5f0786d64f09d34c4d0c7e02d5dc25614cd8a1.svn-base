@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/WEB-INF/templates/main.xhtml"> 
+    <ui:define name="menu">
+        <ui:include src="/protected/views/menu.xhtml"/>
+    </ui:define>    
+    
+    <ui:define name="content">
+        Book requests content
+    </ui:define>
+</ui:composition>
+
+</html>

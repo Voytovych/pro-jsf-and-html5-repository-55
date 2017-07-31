@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="value" type="java.lang.String" default="#000000" />
+        <cc:attribute name="list" type="java.lang.String" />
+        <cc:clientBehavior name="change" targets="#{cc.id}" event="change" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:outputScript library="js" name="jscolor.js" target="head" />
+
+        <div id="#{cc.clientId}">
+            <input jsf:id="#{cc.id}" jsf:value="#{cc.attrs.value}" type="color" 
+                   list="#{cc.attrs.list}"/>
+
+            <script type="text/javascript">
+                function html5_supports_input(type) {
+                    var i = document.createElement("input");
+                    i.setAttribute("type", type);
+                    return i.type === type;
+                }
+
+                if (!html5_supports_input('color')) {
+                    // The color input is not supported on the browser.
+                    // Provide an alternative way of rendering the color picker,
+                    // e.g. jscolor (http://jscolor.com/)
+                    var componentId = '${cc.clientId}:${cc.id}'.replace(/:/g, "\\:");
+                    new jscolor.color(document.getElementById('${cc.clientId}:${cc.id}'), {})
+                }
+            </script>
+
+        </div>
+    </cc:implementation>
+</html>

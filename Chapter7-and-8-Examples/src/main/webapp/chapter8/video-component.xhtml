@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:projsfhtml5="http://xmlns.jcp.org/jsf/composite/projsfhtml5"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:composition template="/base.xhtml">
+
+        <ui:define name="title">
+            Video Component
+        </ui:define>
+
+        <ui:define name="top">
+            Video Component
+        </ui:define>
+
+        <ui:define name="content">
+            <h2>Video with a single media file</h2>
+            <projsfhtml5:video value="media/trailer.mp4" 
+                               autoplay="true" 
+                               controls="true">
+            </projsfhtml5:video>
+
+            <h2>Video with multiple media sources and tracks</h2>
+            <projsfhtml5:video value="media/trailer.mp4" 
+                               controls="true"
+                               sources="#{exampleVideoComponent.mediaSources}"
+                               tracks="#{exampleVideoComponent.textTracks}"/>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

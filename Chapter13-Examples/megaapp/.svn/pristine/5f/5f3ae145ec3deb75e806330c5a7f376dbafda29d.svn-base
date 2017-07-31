@@ -1,0 +1,95 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.BookRequest;
+import com.jsfprohtml5.megaapp.model.Constants;
+import com.jsfprohtml5.megaapp.model.MegaUser;
+import com.jsfprohtml5.megaapp.model.UserGroup;
+import com.jsfprohtml5.megaapp.service.exception.BookRequestAlreadyExists;
+import com.jsfprohtml5.megaapp.service.exception.BookRequestNotFound;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Stateless
+public class BookRequestManager implements BookRequestManagerLocal {
+    
+    @PersistenceContext(unitName = "megaAppUnit")
+    EntityManager em;      
+    
+    @Override
+    public BookRequest sendBookRequest(BookRequest bookRequest) throws BookRequestAlreadyExists {
+        Query query = em.createQuery("select bookRequest from BookRequest bookRequest where "
+                    + "bookRequest.bookId.id = :bookId and bookRequest.userId.id = :userId");
+        
+        query.setParameter("bookId", bookRequest.getBookId().getId());
+        query.setParameter("userId", bookRequest.getUserId().getId());
+
+        try {
+            query.getSingleResult();
+            throw new BookRequestAlreadyExists();
+        } catch (NoResultException exception) {
+            Logger.getLogger(BookManager.class.getName()).log(Level.FINER, "No book request found");
+        }
+        
+        bookRequest.setRequestTime(System.currentTimeMillis());
+        bookRequest.setStatus(Constants.PENDING_REQUEST); //pending status...
+        
+        em.persist(bookRequest);  
+        
+        return bookRequest;    
+    }
+
+    @Override
+    public void approveBookRequest(Integer bookRequestNumber) throws BookRequestNotFound {
+        BookRequest updatableBookRequest = em.find(BookRequest.class, bookRequestNumber);
+
+        if (updatableBookRequest == null) {
+            throw new BookRequestNotFound();
+        }
+        
+        updatableBookRequest.setStatus(Constants.APPROVED_REQUEST); //approved status
+        
+        em.merge(updatableBookRequest);   
+    }
+
+    @Override
+    public void rejectBookRequest(Integer bookRequestNumber) throws BookRequestNotFound {
+        BookRequest updatableBookRequest = em.find(BookRequest.class, bookRequestNumber);
+
+        if (updatableBookRequest == null) {
+            throw new BookRequestNotFound();
+        }
+        
+        updatableBookRequest.setStatus(Constants.REJECTED_REQUEST); //rejected status
+        
+        em.merge(updatableBookRequest);
+    }
+    
+    @Override
+    public List<BookRequest> viewRequests(String userID, int status) {
+        MegaUser user = em.find(MegaUser.class, userID);
+        
+        Query query = em.createQuery("select bookRequest from BookRequest bookRequest where "
+                    + "bookRequest.status = :statusID and bookRequest.userId.id = :userId", 
+                      BookRequest.class);
+        
+        query.setParameter("statusID", status);
+        
+        UserGroup group = user.getUserGroupList().get(0);
+        
+        if (group.getGroupId() == Constants.USER_GROUP) {
+            query.setParameter("userId", userID);
+        }
+
+        return query.getResultList();
+    }
+}

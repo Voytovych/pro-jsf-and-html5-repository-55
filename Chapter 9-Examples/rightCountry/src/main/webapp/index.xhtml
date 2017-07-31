@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Welcome to the Right Country application</title>
+        <h:outputStylesheet library="css" name="rightCountry.css"  />
+    </h:head>
+    <h:body>
+        <rich:dragIndicator id="ind" acceptClass="accept" rejectClass="reject" 
+                            draggingClass="default">
+            Drag the place to the right country
+        </rich:dragIndicator>     
+        
+        <h:form id="form">  
+            <h2>Drag the places to the right country</h2>    
+            
+            <h:panelGrid columnClasses="column" columns="4" 
+                         styleClass="containerPanel">            
+                <rich:panel styleClass="dropSourcePanel">
+                    <f:facet name="header">
+                        <h:outputText value="Places" />
+                    </f:facet>
+                    <h:dataTable id="places" columns="1" 
+                                 value="#{rightCountry.places}"
+                                 var="place" footerClass="footerClass">
+
+                        <h:column>
+                            <a4j:outputPanel styleClass="placesContainer"
+                                             layout="block">
+                                
+                                <rich:dragSource type="#{place.country}" 
+                                                 dragValue="#{place}"
+                                                 dragIndicator="ind"/>
+                                
+                                <h:outputText value="#{place.name}"></h:outputText>
+                                    
+                            </a4j:outputPanel>
+                        </h:column>
+                    </h:dataTable>
+                </rich:panel>
+
+                <rich:panel styleClass="dropTargetPanel">     
+                    <f:facet name="header">
+                        <h:outputText value="Egypt" />
+                    </f:facet>          
+                    
+                    <rich:dropTarget acceptedTypes="Egypt" dropValue="Egypt" 
+                                     dropListener="#{rightCountry.processDrop}"
+                                     render="places, egyptPlaces, germanyPlaces, brazilPlaces"/>
+                    
+                    <h:dataTable id="egyptPlaces" columns="1" 
+                                 value="#{rightCountry.egyptPlaces}"
+                                 var="place" footerClass="footerClass">
+                        <h:column>   
+                            <h:outputText value="#{place.name}"></h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                </rich:panel>
+
+                <rich:panel styleClass="dropTargetPanel">
+                    <f:facet name="header">
+                        <h:outputText value="Germany" />
+                    </f:facet>          
+                    
+                    <rich:dropTarget acceptedTypes="Germany" dropValue="Germany" 
+                                     dropListener="#{rightCountry.processDrop}"
+                                     render="places, egyptPlaces, germanyPlaces, brazilPlaces"/>
+                    
+                    <h:dataTable id="germanyPlaces" columns="1" 
+                                 value="#{rightCountry.germanyPlaces}"
+                                 var="place" footerClass="footerClass">
+                        <h:column>   
+                            <h:outputText value="#{place.name}"></h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                </rich:panel>       
+
+                <rich:panel styleClass="dropTargetPanel">
+                    <f:facet name="header">
+                        <h:outputText value="Brazil" />
+                    </f:facet>          
+                    
+                    <rich:dropTarget acceptedTypes="Brazil" dropValue="Brazil" 
+                                     dropListener="#{rightCountry.processDrop}"
+                                     render="places, egyptPlaces, germanyPlaces, brazilPlaces"/>
+                    
+                    <h:dataTable id="brazilPlaces" columns="1" 
+                                 value="#{rightCountry.brazilPlaces}"
+                                 var="place" footerClass="footerClass">
+                        <h:column>   
+                            <h:outputText value="#{place.name}"></h:outputText>
+                        </h:column>
+                    </h:dataTable>   
+                </rich:panel>
+            </h:panelGrid>
+            
+            <rich:notifyMessages stayTime="2000" nonblocking="true" />
+        </h:form>
+    </h:body>
+</html>

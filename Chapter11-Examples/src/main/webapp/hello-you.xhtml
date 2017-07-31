@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/base.xhtml">
+
+        <ui:define name="title">
+            Chapter 11 - Testing - Hello You
+        </ui:define>
+
+        <ui:define name="top">
+            Chapter 11 - Testing - Hello You
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form id="hello-form">
+                <h:outputLabel value="What's your name?" for="input-name" />
+                <h:inputText id="input-name" value="#{helloYou.name}" />
+                <h:commandButton id="submit" value="Submit" />
+
+                <h:panelGroup id="output-message" rendered="#{not empty helloYou.name}">
+                    Hello #{helloYou.name}
+                </h:panelGroup>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf22="http://java.sun.com/jsf/composite/jsf22"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Example of using img2</title>
+    </h:head>
+    <h:body>
+        <!--jsf22:img2 src="product/1234.png" 
+                    title="Click to see more information" 
+                    popupTitle="The product is available for shipping within 24 hours" />
+        
+        <h:graphicImage value="product/1234.png"
+                        title="Click to see more information">
+            <f:passThroughAttribute name="popupTitle"
+                                    value="The product is available for shipping within 24 hours" />
+        </h:graphicImage-->
+        
+        <h:graphicImage value="product/1234.png"
+                        title="Click to see more information"
+                        p:data-popup-title="The product is available for shipping within 24 hours"
+                        p:data-product-id="1234" />
+        
+        <ui:debug rendered="true" />
+        
+        
+    </h:body>
+</html>
+

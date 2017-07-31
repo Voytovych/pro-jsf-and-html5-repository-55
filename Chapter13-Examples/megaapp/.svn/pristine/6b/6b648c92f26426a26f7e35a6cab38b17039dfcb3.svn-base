@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title><ui:insert name="title">Welcome to the Mega App</ui:insert></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    
+    <!-- Bootstrap -->
+    <link href="#{request.contextPath}/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
+    <link href="#{request.contextPath}/css/bootstrap-responsive.css" rel="stylesheet"></link>	
+    <link href="#{request.contextPath}/css/megaapp.css" rel="stylesheet"></link>   
+</h:head>
+
+<h:body>
+    <div class="container">
+        <ui:insert name="header">
+            <ui:include src="common/header.xhtml"/>
+        </ui:insert>
+
+        <ui:insert name="content"></ui:insert>
+        
+        <ui:insert name="footer"></ui:insert>
+    </div>
+
+    <script src="#{request.contextPath}/js/jquery.js"></script>		
+    <script src="#{request.contextPath}/js/bootstrap.js"></script>
+</h:body>
+</html>

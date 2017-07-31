@@ -1,0 +1,48 @@
+package com.jsfprohtml5.megaapp.backing;
+import com.jsfprohtml5.megaapp.service.BookManagerLocal;
+import com.jsfprohtml5.megaapp.service.BookRequestManagerLocal;
+import com.jsfprohtml5.megaapp.service.MegaUserManagerLocal;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Named;
+
+@Named
+@RequestScoped
+public class MemberBacking extends BaseBacking {
+    @EJB
+    private BookManagerLocal bookManager;    
+
+    @EJB
+    private MegaUserManagerLocal userManager;     
+    
+    @EJB
+    BookRequestManagerLocal bookRequestManager;
+    
+    public void unitTestStuff(ComponentSystemEvent event) {        
+        FunctionTester functionTester = new FunctionTester();
+        
+        /*
+        functionTester.testAddBook(bookManager);
+        functionTester.testUpdateBook(bookManager);
+        functionTester.testGetBookContent(bookManager);        
+        functionTester.testGetBook(bookManager);
+        functionTester.testGetAllBooks(bookManager);
+        functionTester.testDeleteBook(bookManager);
+        */
+        
+        //functionTester.testRegisterUser(userManager);
+        
+        /*
+        functionTester.testGetUser(userManager);
+        functionTester.testDeleteUser(userManager);
+        */
+        
+        /*
+        functionTester.testSendBookRequest(bookRequestManager);
+        functionTester.testViewItemsInbox(bookRequestManager);
+        functionTester.testApproveBookRequest(bookRequestManager);
+        functionTester.testViewItemsInbox(bookRequestManager);
+        */
+    }
+}

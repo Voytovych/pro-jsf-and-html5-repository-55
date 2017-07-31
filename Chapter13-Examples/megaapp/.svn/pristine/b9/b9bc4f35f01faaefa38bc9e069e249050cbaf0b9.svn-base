@@ -1,0 +1,63 @@
+package com.jsfprohtml5.megaapp.backing;
+import com.jsfprohtml5.megaapp.model.Book;
+import com.jsfprohtml5.megaapp.service.BookManagerLocal;
+import com.jsfprohtml5.megaapp.service.exception.BookAlreadyExists;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
+
+@Named
+@ViewScoped
+public class BookAddBacking extends BaseBacking implements Serializable {
+    @EJB
+    private BookManagerLocal bookManager;  
+    
+    private String infoMessage;
+    private Part filePart;
+    
+    public String getInfoMessage() {
+        return infoMessage;
+    }
+
+    public void setInfoMessage(String infoMessage) {
+        this.infoMessage = infoMessage;
+    }    
+    
+    public Part getFilePart() {
+        return filePart;
+    }
+
+    public void setFilePart(Part filePart) {
+        this.filePart = filePart;
+    }    
+    
+    public String saveBook() {
+        Book book = (Book) evaluateEL("#{book}", Book.class);        
+        
+        try {
+            System.out.println("Book title = " + book.getTitle());
+            
+            byte[] bytes = IOUtils.toByteArray(filePart.getInputStream());
+            
+            book.setContent("ewwewew");
+            
+            bookManager.registerBook(book);
+            infoMessage = "Book saved successfully";
+        } catch (BookAlreadyExists ex) {
+            Logger.getLogger(BookAddBacking.class.getName()).log(Level.SEVERE, null, ex);
+            infoMessage = "A book with the same ISBN already exists";
+        } catch (Exception ex) {
+            Logger.getLogger(BookAddBacking.class.getName()).log(Level.SEVERE, null, ex);
+            getContext().addMessage(null, new FacesMessage("An error occurs while saving book"));            
+        }
+        
+        return null;
+    }
+    
+}

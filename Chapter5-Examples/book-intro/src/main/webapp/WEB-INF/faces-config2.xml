@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://xmlns.jcp.org/xml/ns/javaee'
+    xsi:schemaLocation='http://xmlns.jcp.org/xml/ns/javaee file:/Users/alc/NetBeansProjects/book-intro/src/main/webapp/WEB-INF/web-facesconfig_2_2.xsd'>
+    <application id="">
+        <action-listener></action-listener>
+        <resource-library-contracts>
+            <contract-mapping>
+                <contracts></contracts>
+                <url-pattern></url-pattern>
+            </contract-mapping>
+        </resource-library-contracts>
+        
+    </application>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{recordDisplay.load}</from-action>
+            <from-outcome>false</from-outcome>
+            <to-view-id>/not-found.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+
+</faces-config>

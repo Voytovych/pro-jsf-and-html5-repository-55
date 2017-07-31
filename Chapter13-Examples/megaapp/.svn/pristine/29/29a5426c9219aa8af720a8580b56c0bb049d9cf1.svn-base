@@ -1,0 +1,59 @@
+-- Create Table: BOOK
+--------------------------------------------------------------------------------
+CREATE TABLE BOOK
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"ISBN" VARCHAR(64) not null 
+	,"TITLE" VARCHAR(128)  not null 
+	,"AUTHOR" VARCHAR(128) not null 
+	,"PUBLISHER" VARCHAR(64)  not null 
+	,"LANG" VARCHAR(64) not null 
+	,"CONTENT" blob(1M) not null
+);
+
+
+-- Create Table: BOOK_MEMBER
+--------------------------------------------------------------------------------
+CREATE TABLE BOOK_MEMBER
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"BOOK_ID" INTEGER not null 
+	,"MEMBER_ID" INTEGER not null
+);
+
+
+
+-- Create Table: MEMBER
+--------------------------------------------------------------------------------
+CREATE TABLE MEMBER
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"LOGIN_NAME" VARCHAR(64) not null 
+	,"FIRST_NAME" VARCHAR(32) not null 
+	,"LAST_NAME" VARCHAR(32) not null 
+	,"PASSWORD" VARCHAR(32) not null 
+	,"ROLE_ID" INTEGER
+);
+
+
+
+-- Create Table: ROLE
+--------------------------------------------------------------------------------
+CREATE TABLE MEMBER_ROLE
+(
+	"ID" INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
+	,"DESC" VARCHAR(32) not null
+);
+
+
+
+-- Create Foreign Key: BOOK_MEMBER.BOOK_ID -> BOOK.ID
+ALTER TABLE BOOK_MEMBER ADD CONSTRAINT FK_BOOK_MEMBER_BOOK_ID_BOOK_ID FOREIGN KEY (BOOK_ID) REFERENCES BOOK(ID);
+
+
+-- Create Foreign Key: BOOK_MEMBER.MEMBER_ID -> MEMBER.ID
+ALTER TABLE BOOK_MEMBER ADD CONSTRAINT FK_BOOK_MEMBER_MEMBER_ID_MEMBER_ID FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER(ID);
+
+
+-- Create Foreign Key: MEMBER.ROLE -> MEMBER_ROLE.ID
+ALTER TABLE MEMBER ADD CONSTRAINT FK_MEMBER_ROLE_MEMBER_ROLE_ID FOREIGN KEY (ROLE_ID) REFERENCES MEMBER_ROLE(ID);

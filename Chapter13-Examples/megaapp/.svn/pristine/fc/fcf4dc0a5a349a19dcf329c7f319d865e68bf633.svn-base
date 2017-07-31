@@ -1,0 +1,44 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.Book;
+import java.io.Serializable;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Stateless
+public class BookManager implements BookManagerLocal {
+
+    @Override
+    public Book getBookInformation(Integer bookID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Book removeBook(Integer bookID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Serializable getBookContent(Integer bookID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void getAllBooks(Book book) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registerBook(Book book) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

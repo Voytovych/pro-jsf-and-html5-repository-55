@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition>
+        <!-- TODO develop as a component -->
+        <div class="navbar">
+            <div class="navbar-inner">
+            <a class="brand" href="#{request.contextPath}/protected/pages/bookSearch.xhtml">Mega App</a>
+            <ul class="nav">
+                <li><a href="#{request.contextPath}/public/pages/contactUs.xhtml">Contact Us</a></li>
+                <li><a href="#{request.contextPath}/public/pages/about.xhtml">About</a></li>
+            </ul>
+            </div>
+        </div>	
+        <div class="page-header">
+            <h1><ui:insert name="headerText">Welcome to the online library</ui:insert></h1>
+        </div>
+    </ui:composition>
+</html>

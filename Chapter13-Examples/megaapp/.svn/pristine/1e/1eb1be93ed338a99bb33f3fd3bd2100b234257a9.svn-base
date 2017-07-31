@@ -1,0 +1,102 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.Constants;
+import com.jsfprohtml5.megaapp.model.MegaUser;
+import com.jsfprohtml5.megaapp.model.UserGroup;
+import com.jsfprohtml5.megaapp.service.exception.UserAlreadyExists;
+import com.jsfprohtml5.megaapp.service.exception.UserNotFound;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Stateless
+public class MegaUserManager implements MegaUserManagerLocal {
+    
+    @PersistenceContext(unitName = "megaAppUnit")
+    EntityManager em;  
+    
+    @Override
+    public MegaUser getMegaUser(String userID) {
+        Query query = em.createQuery("select megaUser.id, megaUser.firstName"
+                                     + ", megaUser.lastName from MegaUser megaUser where "
+                                     + "megaUser.id = :id");
+        
+        query.setParameter("id", userID);
+
+        Object[] megaUserInfo = (Object[]) query.getSingleResult();
+        
+        if (megaUserInfo == null) {
+            return null;
+        }
+        
+        MegaUser megaUser = new MegaUser(
+                (String) megaUserInfo[0],
+                (String) megaUserInfo[1], 
+                (String) megaUserInfo[2], 
+                null);
+        
+        return megaUser;        
+    }
+
+    @Override
+    public MegaUser registerMegaUser(MegaUser user) throws UserAlreadyExists {
+        Query query = em.createQuery("select megaUser from MegaUser megaUser where "
+                    + "megaUser.id = :userID");
+        
+        query.setParameter("userID", user.getId());
+
+        try {
+            query.getSingleResult();
+            throw new UserAlreadyExists();
+        } catch (NoResultException exception) {
+            Logger.getLogger(BookManager.class.getName()).log(Level.FINER, "No user found");
+        }
+        
+        List<UserGroup> userGroups = new ArrayList<UserGroup>();        
+        
+        UserGroup userGroup = new UserGroup();
+        userGroup.setUserId(user);
+        userGroup.setGroupId(Constants.USER_GROUP);
+        
+        userGroups.add(userGroup);
+        
+        user.setUserGroupList(userGroups);
+        
+        em.persist(user);  
+        em.flush();        
+        
+        return user;
+    }
+
+    @Override
+    public void removeMegaUser(String userID) throws UserNotFound {
+        MegaUser megaUser = em.find(MegaUser.class, userID);
+
+        if (megaUser == null) {
+            throw new UserNotFound();
+        }
+        
+        em.remove(megaUser);
+        em.flush();
+    }
+
+    @Override
+    public List<MegaUser> retrieveMegaUsers() {
+        List<MegaUser> users = new ArrayList<MegaUser>();
+        
+        Query query = em.createQuery("select megaUser from MegaUser megaUser", MegaUser.class);
+
+        return query.getResultList();        
+    }
+
+}

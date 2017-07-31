@@ -1,0 +1,45 @@
+.column {
+    width: 25%;
+    vertical-align: top;         
+}
+
+.dropTargetPanel {
+    width: 90%;
+}
+
+.dropSourcePanel {
+    width: 133px;
+}
+
+.containerPanel {
+    width: 100%;
+}
+
+.placesContainer {
+    width: 100px;
+    border: 1px solid gray;
+    padding: 2px
+}
+
+.footerClass {
+    text-align: center;
+    padding-top: 5px;
+}
+
+.default {
+  padding-left:30px;
+  background-position: 5px;
+  background-repeat: no-repeat;
+ }
+  
+.accept {
+  background-position: 5px;
+  background-repeat: no-repeat;
+  border:2px solid green
+}
+ 
+.reject {
+  border:2px solid red;
+  background-position: 5px;
+  background-repeat: no-repeat;
+}

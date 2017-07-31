@@ -1,0 +1,28 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.MegaUser;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Stateless
+public class MegaUserManager implements MegaUserManagerLocal {
+
+    @Override
+    public MegaUser getMegaUser(String userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registerMegaUser(MegaUser user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeMegaUser(String userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

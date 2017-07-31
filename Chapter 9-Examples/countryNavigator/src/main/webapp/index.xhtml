@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Welcome to the Country Navigator</title>  
+        <h:outputStylesheet library="css" name="countryNavigator.css"  />        
+    </h:head>
+
+    <h:body>
+        <h:form id="form">  
+            <h2>Click on a country to get its details</h2>  
+            <p:ring id="custom" value="#{countryNavigator.countries}" var="country"  
+                    styleClass="image-ring" easing="swing">
+                <p:commandLink update=":form:detail">
+                    <p:graphicImage value="/images/#{country.name}.gif" 
+                                    styleClass="flagIcon" />
+                     <f:setPropertyActionListener value="#{country}"  
+                                                  target="#{countryNavigator.activeCountry}" />  
+                </p:commandLink> 
+
+            </p:ring>
+
+            <p:outputPanel id="detail" styleClass="detailsPanel" layout="block">
+
+                <p:dataTable var="city" value="#{countryNavigator.activeCountry.cities}" 
+                             rendered="#{countryNavigator.activeCountry ne null}">
+                    <f:facet name="header">  
+                        #{countryNavigator.activeCountry.name}  
+                    </f:facet> 
+
+                    <p:column headerText="City">
+                        <h:outputText value="#{city.name}" />
+                    </p:column>
+
+                    <p:column headerText="Population">
+                        <h:outputText value="#{city.population}" />
+                    </p:column>
+                </p:dataTable>                    
+
+            </p:outputPanel>
+        </h:form>   
+    </h:body>
+</html>

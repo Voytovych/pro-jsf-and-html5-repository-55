@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:projsfhtml5="http://xmlns.jcp.org/jsf/composite/projsfhtml5">
+
+    <ui:composition template="/base.xhtml">
+
+        <ui:define name="title">
+            Progress Component
+        </ui:define>
+
+        <ui:define name="top">
+            Progress Component
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h2>Progress bar (indeterminate)</h2>
+            <projsfhtml5:progress id="indeterminate" />
+            
+            <h2>Progress bar (determinate)</h2>
+            <projsfhtml5:progress id="determinate" value="56" max="100"/>
+            
+            <h2>Progress bar (using for)</h2>
+            <projsfhtml5:video id="video" value="media/trailer.mp4" 
+                               autoplay="true" 
+                               controls="true">
+            </projsfhtml5:video>
+            <projsfhtml5:progress id="video-progress" 
+                                  value="0" max="100" 
+                                  for=":video" />
+
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <cc:interface componentType="UIProgress">
+        <cc:attribute name="value" type="java.lang.String" 
+                      shortDescription="How much of the task has been completed" />
+        <cc:attribute name="max" type="java.lang.String" 
+                      shortDescription="The maximum number of the progress bar indicating that the task has completed" />
+        <cc:attribute name="for" type="java.lang.String"
+                      shortDescription="ID of the media component for which the progress bar should automatically update" />
+    </cc:interface>
+
+    <cc:implementation >
+        <h:outputScript name="progress.js" library="projsfhtml5/progress" target="head"/>
+        <div id="#{cc.clientId}">
+            <progress jsf:id="progress">
+                <c:if test="#{cc.attrs.value != null}">
+                    <f:passThroughAttribute name="value" value="#{cc.attrs.value}" />
+                </c:if>
+                <c:if test="#{cc.attrs.max != null}">
+                    <f:passThroughAttribute name="max" value="#{cc.attrs.max}" />
+                </c:if>
+                <cc:insertChildren />
+            </progress>
+
+            <c:if test="#{cc.attrs.for != null}">
+                <script type="text/javascript">
+                    progressBar.init("#{cc.clientId}", "#{cc.forClientId}");
+                </script>
+            </c:if>
+        </div>
+    </cc:implementation>
+</html>

@@ -1,0 +1,12 @@
+com/jsfprohtml5/weather/model/UserManagerLocal.class
+com/jsfprohtml5/weather/model/AppGroupPK.class
+com/jsfprohtml5/weather/model/UserExistsException.class
+com/jsfprohtml5/weather/model/AppUser.class
+com/jsfprohtml5/weather/backing/RegistrationBacking.class
+com/jsfprohtml5/weather/backing/BaseBacking.class
+com/jsfprohtml5/weather/model/AppGroupPK_.class
+com/jsfprohtml5/weather/model/UserManager.class
+com/jsfprohtml5/weather/model/AppGroup.class
+com/jsfprohtml5/weather/backing/WeatherBacking.class
+com/jsfprohtml5/weather/model/AppUser_.class
+com/jsfprohtml5/weather/model/AppGroup_.class

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title><ui:insert name="title">Welcome to the Mega App</ui:insert></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet"></link>	
+    <link href="css/megaapp.css" rel="stylesheet"></link>   
+</h:head>
+
+<h:body>
+    <div class="container">
+        <ui:insert name="header">
+            <div class="navbar">
+                <div class="navbar-inner">
+                <a class="brand" href="#">Mega App</a>
+                <ul class="nav">
+                        <li class="active"><a href="#">Contact Us</a></li>
+                        <li><a href="#about">About</a></li>
+                </ul>
+                </div>
+            </div>	
+            <div class="page-header">
+                <h1>Welcome to the Online library</h1>
+            </div>		
+        </ui:insert>
+        
+        <ui:insert name="content"></ui:insert>
+        
+        <ui:insert name="footer"></ui:insert>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>		
+    <script src="js/bootstrap.js"></script>
+</h:body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <cc:interface>
+        <cc:attribute name="src" type="java.lang.String" required="true" />
+        <cc:attribute name="title" type="java.lang.String" default="" />
+        <cc:attribute name="popupTitle" type="java.lang.String" default="" />
+    </cc:interface>
+
+    <cc:implementation>
+        <img src="#{cc.attrs.src}"
+             title="#{cc.attrs.title}"
+             popupTitle="#{cc.attrs.popupTitle}" />
+    </cc:implementation>
+</html>

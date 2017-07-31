@@ -1,0 +1,34 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.BookRequest;
+import com.jsfprohtml5.megaapp.model.RequestStatus;
+import java.util.List;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Stateless
+public class BookRequestManager implements BookRequestManagerLocal {
+
+    @Override
+    public void sendBookRequest(BookRequest bookRequest) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void approveBookRequest(Integer bookRequestNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void rejectBookRequest(Integer bookRequestNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public List<BookRequest> viewRequests(String userName, RequestStatus requestStatus) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

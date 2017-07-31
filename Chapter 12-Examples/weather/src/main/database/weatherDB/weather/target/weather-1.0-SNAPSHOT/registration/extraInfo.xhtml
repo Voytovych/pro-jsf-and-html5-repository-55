@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="title">
+        #{bundle['application.register.title']}
+    </ui:define>    
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputText value="#{bundle['user.fname']}"></h:outputText>
+                <h:inputText id="fname" 
+                             value="#{flowScope.fname}" 
+                             required="true"  
+                             requiredMessage="#{bundle['user.fname.validation']}">
+                </h:inputText>
+                <h:message for="fname" styleClass="errorMessage"/>
+
+                <h:outputText value="#{bundle['user.lname']}"></h:outputText>
+                <h:inputText id="lname" 
+                               value="#{flowScope.lname}" 
+                               required="true" 
+                               requiredMessage="#{bundle['user.lname.validation']}">
+                </h:inputText>
+                <h:message for="lname" styleClass="errorMessage"/>
+                
+                <h:outputText value="#{bundle['user.profession']}"></h:outputText>
+                <h:selectOneMenu id="profession" 
+                                 value="#{flowScope.profession}">
+                    
+                    <f:selectItem itemLabel="#{bundle['user.profession.profession1']}" itemValue="SE"/>
+                    <f:selectItem itemLabel="#{bundle['user.profession.profession2']}" itemValue="PM"/>
+                    <f:selectItem itemLabel="#{bundle['user.profession.profession3']}" itemValue="OT"/>                    
+                </h:selectOneMenu>
+                <h:message for="profession" styleClass="errorMessage"/>                
+            </h:panelGrid>
+                        
+            <h:commandButton value="#{bundle['application.cancel']}" action="flowReturn" 
+                             immediate="true" /> 
+            <h:commandButton value="#{bundle['application.back']}" action="registration" 
+                              immediate="true" />           
+            <h:commandButton value="#{bundle['application.next']}" action="final"/> <br/>            
+        </h:form>
+    </ui:define>
+</ui:composition>
+    
+</html>
+

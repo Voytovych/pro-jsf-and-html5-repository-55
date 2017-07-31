@@ -1,0 +1,15 @@
+package com.jsfprohtml5.megaapp.service;
+
+import com.jsfprohtml5.megaapp.model.MegaUser;
+import javax.ejb.Local;
+
+/**
+ *
+ * @author Hazem Saleh <hazems@apache.org>
+ */
+@Local
+public interface MegaUserManagerLocal {
+    public MegaUser getMegaUser(String userID);
+    public void removeMegaUser(String userID);    
+    public void registerMegaUser(MegaUser user);
+}
